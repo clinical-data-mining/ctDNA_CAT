@@ -12,4 +12,4 @@ R 4.2.2 dependencies: cmprsk, survivalROC, data.table, dplyr
 
 --VTE_visualize.ipynb: python notebook for visualizing outputs from CompetingRisks.ipynb and also for generating Aalen-Johansen curves as seen in the manuscript (example data provided in the data folder)
 
---run_rsf_vte.py: python script to train and validate random survival forest (note: not linked to example data, issue pending)
+--run_rsf_vte.py: python script to train and validate random survival forest and generates the files vte_rsf_c_index_validation.csv (metrics i.e. c-indices for the model) and vte_riskscores_validation.csv (risk scores per patient). Example here is training on discovery cohort and deploying on prospective validation cohort for a Khorana score+chemotherapy and LB+ model
