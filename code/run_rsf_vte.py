@@ -8,7 +8,7 @@ from sklearn.model_selection import KFold, RepeatedKFold
 
 def runRF(df_train,df_tests,cois):
 
-    df_train['vte']=df_train['CAT_DEATH_ENDPT']==1
+    df_train['vte']=df_train['CAT_DEATH_ENDPT'].astype(int)==1
 
     X_train = df_train[cois].fillna(df_train[cois].median()).astype(float)
     y_train = df_train[['vte','stop']].apply(tuple, axis=1).values.tolist()
@@ -28,16 +28,20 @@ def runRF(df_train,df_tests,cois):
     if not type(df_tests)==list:
         df_tests = [df_tests]
     for df_test in df_tests:
-        df_test['vte']=df_test['CAT_DEATH_ENDPT']==1
+        df_test['vte']=df_test['CAT_DEATH_ENDPT'].astype(int)==1
         X_test = df_test[cois].fillna(df_test[cois].median()).astype(float)
         y_test = df_test[['vte','stop']].apply(tuple, axis=1).values.tolist()
         y_test = np.array(y_test, dtype=[('Status', '?'), ('Survival_in_days', '<f8')])
-        try:
+
+        scores+=[rsf.score(X_test, y_test)]
+        rsf_risk_scores = rsf.predict(X_test)
+        rsf_risk_scores_list += list(rsf_risk_scores)
+        '''try:
             scores+=[rsf.score(X_test, y_test)]
             rsf_risk_scores = rsf.predict(X_test)
             rsf_risk_scores_list += list(rsf_risk_scores)
         except:
-            scores+=[np.nan]
+            scores+=[np.nan]'''
     return (rsf,scores,rsf_risk_scores_list)
 
 
@@ -84,6 +88,7 @@ for j, cois in enumerate(cois_list):
     scores.at[0,cois_list_names[j]] = jscores
     riskscores[cois_list_names[j]] = pd.Series(jriskscores)
 
-scores.to_csv('vte_rsf_c_index_validation.csv')
-riskscores.to_csv('vte_riskscores_validation.csv',index=False)
+# OUTPUT (change names to desired output files)
+scores.to_csv('vte_rsf_c_index_validation.csv') #c-index scores
+riskscores.to_csv('vte_riskscores_validation.csv',index=False) #risk scores per patient
 
