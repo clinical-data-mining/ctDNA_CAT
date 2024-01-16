@@ -5,6 +5,7 @@ from sksurv.preprocessing import OneHotEncoder
 from sksurv.ensemble import RandomSurvivalForest
 from sklearn.inspection import permutation_importance
 from sklearn.model_selection import KFold, RepeatedKFold
+import pickle
 
 def runRF(df_train,df_tests,cois):
 
@@ -36,12 +37,6 @@ def runRF(df_train,df_tests,cois):
         scores+=[rsf.score(X_test, y_test)]
         rsf_risk_scores = rsf.predict(X_test)
         rsf_risk_scores_list += list(rsf_risk_scores)
-        '''try:
-            scores+=[rsf.score(X_test, y_test)]
-            rsf_risk_scores = rsf.predict(X_test)
-            rsf_risk_scores_list += list(rsf_risk_scores)
-        except:
-            scores+=[np.nan]'''
     return (rsf,scores,rsf_risk_scores_list)
 
 
@@ -87,8 +82,10 @@ for j, cois in enumerate(cois_list):
     jrsf, jscores, jriskscores = runRF(vte,vte2,cois)
     scores.at[0,cois_list_names[j]] = jscores
     riskscores[cois_list_names[j]] = pd.Series(jriskscores)
+    # save models
+    with open('models/'+cois_list_names[j]+'.pkl', 'wb') as f:
+        pickle.dump(jrsf, f)
 
 # OUTPUT (change names to desired output files)
 scores.to_csv('vte_rsf_c_index_validation.csv') #c-index scores
 riskscores.to_csv('vte_riskscores_validation.csv',index=False) #risk scores per patient
-
