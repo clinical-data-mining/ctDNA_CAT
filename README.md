@@ -12,7 +12,12 @@ R 4.2.2 dependencies: cmprsk, survivalROC, data.table, dplyr, randomForestSRC (o
 
 --VTE_visualize.ipynb: python notebook for 1. generating Aalen-Johansen curves as seen in the manuscript (example data provided in the data folder), 2. visualizing outputs from CompetingRisks.ipynb, and 3. using an RSF from run_rsf_vte.py to make inferences on a new dataset
 
-![cumulative incidence curve](./code/ctDNA_CAT_discovery.pdf "cumulative incidence curve")
+<object data="./code/ctDNA_CAT_discovery.pdf" type="application/pdf">
+    <embed src="./code/ctDNA_CAT_discovery.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="./code/ctDNA_CAT_discovery.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+
 
 --run_rsf_vte.py: python script to train and validate random survival forest and generates the files vte_rsf_c_index_validation.csv (metrics i.e. c-indices for the model) and vte_riskscores_validation.csv (risk scores per patient). Example here is training on discovery cohort and deploying on prospective validation cohort for a Khorana score+chemotherapy and LB+ model
 
