@@ -63,7 +63,7 @@ cois_list_names = ['Khorana Score+chemotherapy','LB+']
 vte = pd.read_csv('../data/discovery.csv')
 vte2 = pd.read_csv('../data/validation.csv')
 
-# add columns corresponding to significantly altered genes
+'''# add columns corresponding to significantly altered genes
 def queryOncogenicMutations(s, g):
     tok = s.split(';')
     if len(tok)>0:
@@ -72,6 +72,7 @@ def queryOncogenicMutations(s, g):
 for g in list(xs_common_genes['Gene']):
     vte[g]=vte['ONCOGENIC_MUTATIONS'].fillna('').apply(lambda x: queryOncogenicMutations(x, g))
     vte2[g]=vte2['ONCOGENIC_MUTATIONS'].fillna('').apply(lambda x: queryOncogenicMutations(x, g))
+'''
 
 # RUN RSF (example here is trained on discovery, applied to prospective validation cohort)
 scores = pd.DataFrame(columns=cois_list_names)

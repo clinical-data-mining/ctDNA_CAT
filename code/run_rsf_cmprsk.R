@@ -17,11 +17,13 @@ vte <- vte %>%
   mutate_at(vars(names(logical_columns)[logical_columns]), ~ ifelse(. == "True", TRUE, FALSE))
 
 # train rfsrc	
+genes = read.csv("common_gene_list.txt", header=TRUE)
 vte.obj <- rfsrc(Surv(stop, CAT_DEATH_ENDPT) ~ ., data=vte[c("Non.Small.Cell.Lung.Cancer", "Breast.Cancer", "Pancreatic.Cancer",
             "Melanoma", "Prostate.Cancer", "Bladder.Cancer",
             "Esophagogastric.Cancer", "Hepatobiliary.Cancer", "Colorectal.Cancer",
 	    "X.ctDNA","log10.max.VAF.",
-            "log10.cfDNA.concentration.","chemotherapy","stop","CAT_DEATH_ENDPT")])
+            "log10.cfDNA.concentration.","chemotherapy",genes$Gene,
+	    "stop","CAT_DEATH_ENDPT")])
 
 # summarize results
 pdf("rsf_cmprsk_vte.pdf", width = 8, height = 8)
