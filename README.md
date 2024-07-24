@@ -1,5 +1,5 @@
 # ctDNA_CAT
-Data and code for liquid biopsy/cancer associated thromboembolism project. Data presented at [ASH 2023](https://ashpublications.org/blood/article/142/Supplement%201/569/503970/DNA-Liquid-Biopsies-for-Cancer-Associated-Venous). Manuscript forthcoming. Note: full genomic data for the discovery and validation cohorts will be available on https://www.cbioportal.org/ upon study release. Genomic data for the ctDx generalizability cohort can be found here: https://www.cbioportal.org/study/summary?id=nsclc_ctdx_msk_2022
+Data and code for liquid biopsy/cancer associated thromboembolism project. Data presented at [ASH 2023](https://ashpublications.org/blood/article/142/Supplement%201/569/503970/DNA-Liquid-Biopsies-for-Cancer-Associated-Venous). Manuscript forthcoming. Additional genomic data for the discovery and validation cohorts is available here: https://www.cbioportal.org/study/summary?id=msk_ctdna_vte_2024 Additional genomic data for the ctDx generalizability cohort can be found here: https://www.cbioportal.org/study/summary?id=nsclc_ctdx_msk_2022
 
 ## requirements
 python (3.10)
