@@ -5,7 +5,7 @@ from sksurv.preprocessing import OneHotEncoder
 from sksurv.ensemble import RandomSurvivalForest
 from sklearn.inspection import permutation_importance
 from sklearn.model_selection import KFold, RepeatedKFold
-import pickle
+import joblib
 
 def runRF(df_train,df_tests,cois):
 
@@ -72,9 +72,9 @@ for j, cois in enumerate(cois_list):
     jrsf, jscores, jriskscores = runRF(vte,vte2,cois)
     scores.at[0,cois_list_names[j]] = jscores
     riskscores[cois_list_names[j]] = pd.Series(jriskscores)
-    # save models
-    with open('models/'+cois_list_names[j]+'.pkl', 'wb') as f:
-        pickle.dump(jrsf, f)
+
+    # save models (**OPTIONAL**)
+    joblib.dump(jrsf, 'models/'+cois_list_names[j]+'.pkl')
 
 # OUTPUT (change names to desired output files)
 scores.to_csv('vte_rsf_c_index_validation.csv') #c-index scores
