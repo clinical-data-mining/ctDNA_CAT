@@ -3,7 +3,7 @@ Data and code for liquid biopsy/cancer associated thromboembolism project. Data 
 
 ## requirements
 python (3.10)
-Library dependencies: pandas (1.5.3), numpy (1.24.3), matplotlib (3.7.1), seaborn (0.12.2), statsmodels (0.14.0), lifelines (0.27.7), sksurv (scikit-survival 0.20.0). () = tested on this version
+Library dependencies: pandas (1.5.3), numpy (1.24.3), matplotlib (3.7.1), seaborn (0.12.2), statsmodels (0.14.0), lifelines (0.27.7), sksurv (scikit-survival 0.20.0), joblib (optional). () = tested on this version
 
 R 4.2.2 dependencies: cmprsk, survivalROC, data.table, dplyr, randomForestSRC (optional, for run_rsf_cmprsk.R only)
 
