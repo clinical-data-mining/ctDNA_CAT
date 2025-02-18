@@ -62,10 +62,12 @@ cois_list_names = ['Khorana Score+chemotherapy','LB+']
 # LOAD DATA
 vte = pd.read_csv('../data/discovery.csv')
 vte2 = pd.read_csv('../data/validation.csv')
+recurrence = pd.read_csv('../data/recurrence.csv')
 
 # RUN RSF (example here is trained on discovery, applied to prospective validation cohort)
 scores = pd.DataFrame(columns=cois_list_names)
 riskscores = pd.DataFrame()
+
 vte2 = vte2[~vte2['log10(cfDNA concentration)'].isna()]
 for j, cois in enumerate(cois_list):
     print(cois_list_names[j])
@@ -74,8 +76,25 @@ for j, cois in enumerate(cois_list):
     riskscores[cois_list_names[j]] = pd.Series(jriskscores)
 
     # save models (**OPTIONAL**)
-    joblib.dump(jrsf, 'models/'+cois_list_names[j]+'.pkl')
+    # joblib.dump(jrsf, 'models/'+cois_list_names[j]+'.pkl')
 
 # OUTPUT (change names to desired output files)
 scores.to_csv('vte_rsf_c_index_validation.csv') #c-index scores
 riskscores.to_csv('vte_riskscores_validation.csv',index=False) #risk scores per patient
+
+'''
+# EXAMPLE RUN ON RECURRENCE DATA WITH LB+ ONLY
+cois_list_names = ['LB+']
+for j, cois in enumerate([lbplus_cols]):
+    print(cois_list_names[j])
+    jrsf, jscores, jriskscores = runRF(vte,recurrence,cois)
+    scores.at[0,cois_list_names[j]] = jscores
+    riskscores[cois_list_names[j]] = pd.Series(jriskscores)
+
+    # save models (**OPTIONAL**)
+    # joblib.dump(jrsf, 'models/'+cois_list_names[j]+'.pkl')
+
+# OUTPUT (change names to desired output files)
+scores.to_csv('vte_rsf_c_index_recurrence.csv') #c-index scores
+riskscores.to_csv('vte_riskscores_recurrence.csv',index=False) #risk scores per patient
+'''
